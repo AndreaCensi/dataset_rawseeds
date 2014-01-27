@@ -10,16 +10,31 @@
     - - dataset_rawseeds.RawseedsHokuyo
       - "file:filename": "${dir}/HOKUYO_FRONT.csv.bz2"
         signal_name: 'hokuyo_front'
+    - - dataset_rawseeds.RawseedsHokuyo
+      - "file:filename": "${dir}/HOKUYO_REAR.csv.bz2"
+        signal_name: 'hokuyo_rear'
     - - dataset_rawseeds.RawseedsRF
       - "file:filename": "${dir}/SICK_FRONT.csv.bz2"
         signal_name: 'sick_front'
     - - dataset_rawseeds.RawseedsRF
       - "file:filename": "${dir}/SICK_REAR.csv.bz2"
         signal_name: 'sick_rear'
-    - - dataset_rawseeds.RawseedsHokuyo
-      - "file:filename": "${dir}/HOKUYO_REAR.csv.bz2"
-        signal_name: 'hokuyo_rear'
     - - dataset_rawseeds.RawseedsIMU
       - "file:filename": "${dir}/IMU_STRETCHED.csv.bz2"
+    - - procgraph_rawlogs.VideoLog
+      - "file:filename": "${dir}/OMNI.avi"
+        signal_name: omni
+    - - procgraph_rawlogs.VideoLog
+      - "file:filename": "${dir}/FRONTAL.avi"
+        signal_name: frontal
+    - - procgraph_rawlogs.VideoLog
+      - "file:filename": "${dir}/SVS_L.avi"
+        signal_name: svs_l
+    - - procgraph_rawlogs.VideoLog
+      - "file:filename": "${dir}/SVS_R.avi"
+        signal_name: svs_r
+    - - procgraph_rawlogs.VideoLog
+      - "file:filename": "${dir}/SVS_T.avi"
+        signal_name: svs_t
 
 - id: rs-Bicocca_2009-02-26a
