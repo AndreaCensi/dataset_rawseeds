@@ -1,0 +1,25 @@
+
+- id: "rs-${dir}"
+  desc: "Rawseeds dataset ${dir}"
+  code: 
+  - rawlogs.library.Multiple
+  - annotations: {}
+    logs:
+    - - dataset_rawseeds.RawseedsOdometry
+      - "file:filename": "${dir}/ODOMETRY_XYT.csv.bz2"
+    - - dataset_rawseeds.RawseedsHokuyo
+      - "file:filename": "${dir}/HOKUYO_FRONT.csv.bz2"
+        signal_name: 'hokuyo_front'
+    - - dataset_rawseeds.RawseedsRF
+      - "file:filename": "${dir}/SICK_FRONT.csv.bz2"
+        signal_name: 'sick_front'
+    - - dataset_rawseeds.RawseedsRF
+      - "file:filename": "${dir}/SICK_REAR.csv.bz2"
+        signal_name: 'sick_rear'
+    - - dataset_rawseeds.RawseedsHokuyo
+      - "file:filename": "${dir}/HOKUYO_REAR.csv.bz2"
+        signal_name: 'hokuyo_rear'
+    - - dataset_rawseeds.RawseedsIMU
+      - "file:filename": "${dir}/IMU_STRETCHED.csv.bz2"
+
+- id: rs-Bicocca_2009-02-26a
