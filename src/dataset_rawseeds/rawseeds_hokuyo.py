@@ -9,7 +9,7 @@ class RawseedsHokuyo(RawTextLog):
     
     def __init__(self, filename, signal_name):
         dtypes = {}
-        dtypes[signal_name] = 'array'
+        dtypes[signal_name] = np.dtype(('float', 682))
         parse_function = HokuyoParse(signal_name)
         RawTextLog.__init__(self,
                             filename=filename,

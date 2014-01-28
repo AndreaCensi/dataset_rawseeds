@@ -35,11 +35,11 @@ class RawseedsIMU(RawTextLog):
 
     def __init__(self, filename):
         dtypes = {}
-        dtypes['counter'] = 'array'
-        dtypes['acceleration'] = 'array'
-        dtypes['angular_velocity'] = 'array'
-        dtypes['magnetic_field'] = 'array'
-        dtypes['attitude'] = 'array'
+        dtypes['counter'] = np.dtype(('int64', 1))
+        dtypes['acceleration'] = np.dtype(('float', 3))
+        dtypes['angular_velocity'] = np.dtype(('float', 3))
+        dtypes['magnetic_field'] = np.dtype(('float', 3))
+        dtypes['attitude'] = np.dtype(('float', (3, 3)))
 
         parse_function = rawseeds_imu_parse
 
@@ -73,10 +73,10 @@ def rawseeds_imu_parse(line):
     attitude = read_vector(9).reshape((3, 3))
 
     return [
-        (timestamp, 'counter', counter),
-        (timestamp, 'acceleration', acceleration),
-        (timestamp, 'angular_velocity', angular_velocity),
-        (timestamp, 'magnetic_field', magnetic_field),
-        (timestamp, 'attitude', attitude),
+        (timestamp, 'counter', np.array(counter, dtype='int64')),
+        (timestamp, 'acceleration', np.array(acceleration)),
+        (timestamp, 'angular_velocity', np.array(angular_velocity)),
+        (timestamp, 'magnetic_field', np.array(magnetic_field)),
+        (timestamp, 'attitude', np.array(attitude)),
     ]
 

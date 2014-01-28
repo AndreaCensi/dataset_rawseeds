@@ -18,7 +18,7 @@ class RawseedsRF(RawTextLog):
     '''
     def __init__(self, filename, signal_name):
         dtypes = {}
-        dtypes[signal_name] = 'array'
+        dtypes[signal_name] = np.dtype(('float', 181))
         parse_function = RFParse(signal_name)
         RawTextLog.__init__(self,
                             filename=filename,

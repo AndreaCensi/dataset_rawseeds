@@ -1,4 +1,5 @@
 from rawlogs.library.textlog import RawTextLog
+import numpy as np
 
 __all__ = ['RawseedsOdometry']
 
@@ -28,13 +29,13 @@ class RawseedsOdometry(RawTextLog):
 
     def __init__(self, filename):
         dtypes = {}
-        dtypes['pose'] = 'array'
-        dtypes['ticks_right'] = 'array'
-        dtypes['ticks_left'] = 'array'
-        dtypes['x'] = 'array'
-        dtypes['y'] = 'array'
-        dtypes['theta'] = 'array'
-        dtypes['rolling_counter'] = 'array'
+        dtypes['pose'] = np.dtype(('float', 3))
+        dtypes['ticks_right'] = np.dtype(('int64', 1))
+        dtypes['ticks_left'] = np.dtype(('int64', 1))
+        dtypes['x'] = np.dtype(('float', 1))
+        dtypes['y'] = np.dtype(('float', 1))
+        dtypes['theta'] = np.dtype(('float', 1))
+        dtypes['rolling_counter'] = np.dtype(('float', 1))
 
         parse_function = rawseeds_odometry_parse
 
@@ -64,13 +65,13 @@ def rawseeds_odometry_parse(line):
 
     return [
         # XXX compensate for reference frame?
-        (timestamp, 'pose', [x, y, theta]),
-        (timestamp, 'ticks_right', ticks_right),
-        (timestamp, 'ticks_left', ticks_left),
-        (timestamp, 'x', x),
-        (timestamp, 'y', y),
-        (timestamp, 'theta', theta),
-        (timestamp, 'rolling_counter', rolling_counter)
+        (timestamp, 'pose', np.array([x, y, theta])),
+        (timestamp, 'ticks_right', np.array(ticks_right, dtype='int')),
+        (timestamp, 'ticks_left', np.array(ticks_left, dtype='int')),
+        (timestamp, 'x', np.array(x)),
+        (timestamp, 'y', np.array(y)),
+        (timestamp, 'theta', np.array(theta)),
+        (timestamp, 'rolling_counter', np.array(rolling_counter)),
     ]
 
 
