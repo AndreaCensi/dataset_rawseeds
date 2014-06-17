@@ -37,4 +37,45 @@
       - "file:filename": "${dir}/SVS_T.avi"
         signal_name: svs_t
 
+- id: "rsf-${dir}"
+  desc: "Filtered rawseeds dataset ${dir}"
+  code: 
+  - rawlogs.library.RemoveSignals
+  - signals: 
+    - acceleration
+    - x
+    - y
+    - theta
+    - rolling_counter
+    - counter
+    - angular_velocity
+    - magnetic_field
+    - attitude
+    - ticks_right
+    - ticks_left
+    - pose
+    - pose_SE2
+    rawlog:
+    - rawlogs_filters.ProcgraphFilter
+    - rawlog: "rs-${dir}"
+      model: [procgraph_robotics.vel_from_SE2_seq, {}]
+      inputs: 
+        pose_SE2: pose
+      outputs:
+        velocity: velocity
+
+
+
+
+- id: rs-Bicocca_2009-02-25a
+- id: rs-Bicocca_2009-02-25b
 - id: rs-Bicocca_2009-02-26a
+- id: rs-Bicocca_2009-02-26b
+- id: rs-Bicocca_2009-02-27a
+- id: rs-Bovisa_2008-09-01
+- id: rs-Bovisa_2008-10-04
+- id: rs-Bovisa_2008-10-06
+- id: rs-Bovisa_2008-10-07
+- id: rs-Bovisa_2008-10-11a
+- id: rs-Bovisa_2008-10-11b
+
