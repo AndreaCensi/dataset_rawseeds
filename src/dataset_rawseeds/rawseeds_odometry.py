@@ -1,5 +1,6 @@
 from rawlogs.library.textlog import RawTextLog
 import numpy as np
+from geometry.poses import SE2_from_xytheta
 
 __all__ = ['RawseedsOdometry']
 
@@ -30,6 +31,7 @@ class RawseedsOdometry(RawTextLog):
     def __init__(self, filename):
         dtypes = {}
         dtypes['pose'] = np.dtype(('float', 3))
+        dtypes['pose_SE2'] = np.dtype(('float', (3,3 )))
         dtypes['ticks_right'] = np.dtype(('int64', 1))
         dtypes['ticks_left'] = np.dtype(('int64', 1))
         dtypes['x'] = np.dtype(('float', 1))
@@ -63,9 +65,11 @@ def rawseeds_odometry_parse(line):
     y = float(elements.pop(0))
     theta = float(elements.pop(0))
 
+    xytheta = np.array([x, y, theta])
     return [
         # XXX compensate for reference frame?
-        (timestamp, 'pose', np.array([x, y, theta])),
+        (timestamp, 'pose', xytheta),
+        (timestamp, 'pose_SE2', SE2_from_xytheta(xytheta)),
         (timestamp, 'ticks_right', np.array(ticks_right, dtype='int')),
         (timestamp, 'ticks_left', np.array(ticks_left, dtype='int')),
         (timestamp, 'x', np.array(x)),
@@ -73,8 +77,4 @@ def rawseeds_odometry_parse(line):
         (timestamp, 'theta', np.array(theta)),
         (timestamp, 'rolling_counter', np.array(rolling_counter)),
     ]
-
-
-
-
 
